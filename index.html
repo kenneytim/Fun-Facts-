@@ -3,29 +3,208 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fun Facts</title>
+    <title>Amazing Fun Facts</title>
     <style>
-        body { font-family: Arial, sans-serif; background-color: #f0f0f0; color: #333; }
-        h1 { color: #4CAF50; }
-        .fact { background-color: #fff; border: 1px solid #ddd; padding: 10px; margin: 10px 0; border-radius: 5px; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .wrapper {
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .title {
+            font-size: 32px;
+            color: #667eea;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            color: #999;
+            font-size: 13px;
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+        }
+
+        .fact-display {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin: 25px 0;
+            font-size: 18px;
+            line-height: 1.8;
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 500;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-new {
+            background: #667eea;
+            color: white;
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .btn-new:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-copy {
+            background: #f0f0f0;
+            color: #333;
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .btn-copy:hover {
+            background: #e0e0e0;
+            transform: translateY(-2px);
+        }
+
+        .counter {
+            margin-top: 20px;
+            font-size: 13px;
+            color: #999;
+        }
+
+        .counter strong {
+            color: #667eea;
+            font-size: 16px;
+        }
+
+        @media (max-width: 500px) {
+            .card {
+                padding: 25px;
+            }
+
+            .title {
+                font-size: 24px;
+            }
+
+            .fact-display {
+                font-size: 16px;
+                padding: 20px;
+                min-height: 100px;
+            }
+
+            button {
+                padding: 10px 16px;
+                font-size: 12px;
+            }
+        }
     </style>
 </head>
 <body>
-    <h1>Fun Facts</h1>
-    <div class="fact">
-        <p>Did you know? Honey never spoils. Archaeologists have found pots of honey in ancient Egyptian tombs that are over 3000 years old!</p>
+    <div class="wrapper">
+        <div class="card">
+            <h1 class="title">Fun Facts 🎯</h1>
+            <p class="subtitle">Learn Something New Every Day</p>
+            
+            <div class="fact-display" id="factBox">
+                Click "Get Fact" to start!
+            </div>
+            
+            <div class="button-group">
+                <button class="btn-new" onclick="loadFact()">Get Fact</button>
+                <button class="btn-copy" onclick="copyFact()">Copy</button>
+            </div>
+            
+            <div class="counter">
+                Facts learned: <strong id="count">0</strong>
+            </div>
+        </div>
     </div>
-    <div class="fact">
-        <p>Did you know? Bananas are berries, but strawberries aren't!</p>
-    </div>
-    <div class="fact">
-        <p>Did you know? A group of flamingos is called a "flamboyance"!</p>
-    </div>
-    <div class="fact">
-        <p>Did you know? The Eiffel Tower can be 15 cm taller during the summer due to thermal expansion of the metal!</p>
-    </div>
-    <div class="fact">
-        <p>Did you know? Octopuses have three hearts!</p>
-    </div>
+
+    <script>
+        const funFacts = [
+            "Honey never spoils and can last for thousands of years!",
+            "A group of flamingos is called a 'flamboyance'.",
+            "Octopuses have three hearts and blue blood.",
+            "Bananas are berries, but strawberries aren't!",
+            "Lightning is 5 times hotter than the sun's surface.",
+            "Cats spend 70% of their lives sleeping.",
+            "Wombats have cube-shaped poop.",
+            "Seahorses mate for life.",
+            "Butterflies taste with their feet.",
+            "A group of crows is called a 'murder'.",
+            "Honey badgers are fearless animals.",
+            "The Eiffel Tower grows 15cm taller in summer.",
+            "Penguins propose to mates with a pebble.",
+            "Polar bears have black skin under white fur.",
+            "Humans are the only animals that cry emotionally.",
+            "A cloud weighs as much as 100 elephants.",
+            "Sloths only defecate once a week.",
+            "Cleopatra was closer to the iPhone invention than to the Great Pyramid.",
+            "Giraffes have the same number of neck bones as humans.",
+            "Migratory terns see more sunsets than any other animal."
+        ];
+
+        let viewCount = 0;
+
+        function loadFact() {
+            const randomIndex = Math.floor(Math.random() * funFacts.length);
+            const factBox = document.getElementById('factBox');
+            factBox.textContent = funFacts[randomIndex];
+            viewCount++;
+            document.getElementById('count').textContent = viewCount;
+        }
+
+        function copyFact() {
+            const factText = document.getElementById('factBox').textContent;
+            if (factText === "Click \"Get Fact\" to start!") {
+                alert('Load a fact first!');
+                return;
+            }
+            navigator.clipboard.writeText(factText);
+            alert('Fact copied to clipboard!');
+        }
+    </script>
 </body>
 </html>
